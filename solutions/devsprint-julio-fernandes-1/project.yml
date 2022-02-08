@@ -15,10 +15,10 @@ settings:
   ARCHS: $(ARCHS_STANDARD)
 
 options:
-  xcodeVersion: "13.0"
+  xcodeVersion: "12.4"
   createIntermediateGroups: true
   deploymentTarget:
-    iOS: "15.0"
+    iOS: "14.2"
 
 #==================================================================================================
 targets:
