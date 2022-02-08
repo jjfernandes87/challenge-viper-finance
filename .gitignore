@@ -18,6 +18,10 @@ DerivedData/
 xcuserdata/
 .DS_Store
 
+## Projects and workspaces
+solutions/devsprint-julio-fernandes-1/*.xcodeproj
+solutions/devsprint-julio-fernandes-1/*.xcworkspace
+
 ## Other
 *.moved-aside
 *.xccheckout

@@ -1,0 +1,71 @@
+#!/bin/bash
+
+scriptPath="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+# Variables & Functions
+#===============================================================================
+header="" # Print header title
+
+print_header() {
+  echo .
+  echo =====================
+  printf "$header\n"
+  echo =====================
+  echo .
+}
+
+setup_cocoapods() {
+  header="Setup Cocoapods"; print_header;
+  if gem list cocoapods | grep -q '1.10.0'; then
+  	echo "Cocoapods already installed."
+  else
+  	echo "Cocoapods not found. Starting installation..."
+  	sudo gem install cocoapods -v 1.10.0
+  	echo "Cocoapods installed. Version:"; pod --version
+  fi
+}
+
+setup_homebrew() {
+  header="Setup Homebrew"; print_header;
+  which -s brew
+  if [[ $? != 0 ]] ; then
+  	echo "Homebrew not found. Starting installation..."
+  	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  	echo "HomeBrew installed. Version:"; brew -v
+  else
+  	brew update
+  	echo "HomeBrew updated. Version:"; brew -v
+  fi
+}
+
+setup_xcodegen() {
+  header="Setup Xcodegen"; print_header;
+  xcodegen --version
+  if [[ $? != 0 ]] ; then
+  	echo "Xcodegen not found. Starting installation..."
+  	brew install xcodegen
+  	echo "Xcodegen installed. Version:"; xcodegen --version
+  else
+  	brew upgrade xcodegen
+  	echo "Xcodegen updated. Version:"; xcodegen --version
+  fi
+}
+
+setup_bundler() {
+  header="Setup Bundler"; print_header;
+  cd ../solutions/devsprint-julio-fernandes-1
+  gem install bundler
+  bundle update --bundler
+  bundle install
+}
+
+#===============================================================================
+
+
+# main()
+#===============================================================================
+header="Starting tools setup"; print_header
+setup_cocoapods
+setup_homebrew
+setup_xcodegen
+setup_bundler
